@@ -9,6 +9,6 @@ function validateUser(user) {
     return !!userSchema.validate(user).error;
 }
 
-export default {
+export {
     validateUser,
 };
