@@ -1,6 +1,7 @@
 import express from 'express';
 import cors from 'cors';
-import { postLogin, postSignUp } from './controllers/users.js';
+import { getUserInfo, postLogin, postSignUp } from './controllers/users.js';
+import authentication from './middleware/auth.js';
 
 const app = express();
 app.use(express.json());
@@ -13,5 +14,6 @@ app.get('/check-status', (req, res) => {
 // USERS
 app.post('/sign-up', postSignUp);
 app.post('/login', postLogin);
+app.get('/user', authentication, getUserInfo);
 
 export default app;

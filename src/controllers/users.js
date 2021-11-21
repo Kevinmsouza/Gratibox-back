@@ -32,7 +32,30 @@ async function postLogin(req, res) {
     }
 }
 
+async function getUserInfo(req, res) {
+    const { userId } = res.locals;
+    try {
+        const result = await connection.query(`
+            SELECT * 
+            FROM users 
+                JOIN plans 
+                    ON users.plan_id = plans.id
+                JOIN users_products 
+                    ON users.id = users_products.user_id
+                JOIN products 
+                    ON users_products.product_id = products.id
+            WHERE users.id = $1
+        ;`, [userId]);
+        return res.send(result.rows);
+    } catch (error) {
+        // eslint-disable-next-line no-console
+        console.log(error);
+        return res.sendStatus(500);
+    }
+}
+
 export {
     postSignUp,
     postLogin,
+    getUserInfo,
 };
