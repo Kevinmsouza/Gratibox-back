@@ -24,29 +24,11 @@ async function postLogin(req, res) {
             (user_id, token)
             VALUES ($1, $2)
         ;`, [user.id, token]);
-        return res.send(token);
-    } catch (error) {
-        // eslint-disable-next-line no-console
-        console.log(error);
-        return res.sendStatus(500);
-    }
-}
-
-async function getUserInfo(req, res) {
-    const { userId } = res.locals;
-    try {
-        const result = await connection.query(`
-            SELECT * 
-            FROM users 
-                JOIN plans 
-                    ON users.plan_id = plans.id
-                JOIN users_products 
-                    ON users.id = users_products.user_id
-                JOIN products 
-                    ON users_products.product_id = products.id
-            WHERE users.id = $1
-        ;`, [userId]);
-        return res.send(result.rows);
+        return res.send({
+            token,
+            username: user.username,
+            planId: user.plan_id,
+        });
     } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
@@ -57,5 +39,4 @@ async function getUserInfo(req, res) {
 export {
     postSignUp,
     postLogin,
-    getUserInfo,
 };
