@@ -1,6 +1,6 @@
 import connection from '../database/database.js';
 
-async function userFactory(body) {
+async function planFactory(body) {
     const {
         userId,
         planId,
@@ -45,4 +45,4 @@ async function userFactory(body) {
     }
 }
 
-export { userFactory };
+export { planFactory };

@@ -5,7 +5,7 @@ function validatePlan(plan) {
         planId: Joi.number().integer().required(),
         deliveryType: Joi.number().integer().required(),
         fullName: Joi.string().required(),
-        postalCode: Joi.string().required(),
+        postalCode: Joi.string().pattern(/[0-9]{5}-[0-9]{3}/).required(),
         address: Joi.string().required(),
         city: Joi.string().required(),
         stateId: Joi.number().integer().required(),
