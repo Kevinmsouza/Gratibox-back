@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import { postLogin, postSignUp } from './controllers/users.js';
-import { postPlan } from './controllers/plans.js';
+import { getPlanInfo, postPlan } from './controllers/plans.js';
 import authentication from './middleware/auth.js';
 
 const app = express();
@@ -18,5 +18,6 @@ app.post('/login', postLogin);
 
 // PLANS
 app.post('/plans', authentication, postPlan);
+app.get('/plans', authentication, getPlanInfo);
 
 export default app;
