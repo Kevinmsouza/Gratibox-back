@@ -24,7 +24,7 @@ async function postLogin(req, res) {
             (user_id, token)
             VALUES ($1, $2)
         ;`, [user.id, token]);
-        return res.sendStatus(200);
+        return res.send(token);
     } catch (error) {
         // eslint-disable-next-line no-console
         console.log(error);
