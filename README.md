@@ -56,10 +56,10 @@ npm i
 
 ```sh
 DB_USER=postgres
+DB_PASSWORD=123456
 DB_HOST=localhost
-DB_PASS=123456
 DB_PORT=5432
-DB_NAME=gratibox
+DB_DATABASE=gratibox
 PORT=4000
 ```
 
