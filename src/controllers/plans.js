@@ -64,7 +64,7 @@ async function getPlanInfo(req, res) {
                     ON users_products.product_id = products.id
             WHERE users_products.user_id = $1
         ;`, [userId]);
-        result = { ...result, products: products.rows };
+        result = { ...result, signDate: dayjs(result.signDate).format('DD/MM/YYYY'), products: products.rows };
         const deliveryDates = calculateDeliveryDates(result.planId, result.deliveryType);
         return res.send({ ...result, deliveryDates });
     } catch (error) {
