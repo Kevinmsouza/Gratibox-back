@@ -62,4 +62,21 @@ describe('POST /plans', () => {
 });
 
 describe('GET /plans', () => {
+    it('returns 200 for success', async () => {
+        const result = await supertest(app)
+            .get('/plans')
+            .set('Authorization', `Bearer ${token}`);
+        expect(result.status).toEqual(200);
+    });
+    it('returns 401 for no Autorization', async () => {
+        const result = await supertest(app)
+            .get('/plans');
+        expect(result.status).toEqual(401);
+    });
+    it('returns 403 for invalid token', async () => {
+        const result = await supertest(app)
+            .get('/plans')
+            .set('Authorization', 'Bearer invalid-token');
+        expect(result.status).toEqual(403);
+    });
 });
