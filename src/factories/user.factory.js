@@ -3,7 +3,7 @@ import connection from '../database/database.js';
 async function userFactory(body) {
     try {
         const { username, email, password } = body;
-        const result = await connection.query('SELECT * FROM users WHERE email = $1;', [email]);
+        const result = await connection.query('SELECT * FROM users WHERE email iLIKE $1;', [email]);
         if (result.rows.length) return 409;
         await connection.query(`
             INSERT INTO users
