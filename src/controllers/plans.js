@@ -13,10 +13,10 @@ async function postPlan(req, res) {
 function calculateDeliveryDates(planId, deliveryType) {
     const deliveryDates = [];
     // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < 3; i++) {
+    for (let i = 0; i < 4; i++) {
         if (planId === 1) {
             const weekDay = deliveryType * 2 - 1;
-            deliveryDates.push(dayjs().day(weekDay + i * 7).format('DD/MM/YYYY'));
+            deliveryDates.push(dayjs().day(weekDay + i * 7));
         }
         if (planId === 2) {
             let monthDay;
@@ -36,10 +36,12 @@ function calculateDeliveryDates(planId, deliveryType) {
             let originalDate = dayjs().date(monthDay).add(i, 'month');
             if (originalDate.get('day') === 0) originalDate = originalDate.day(1);
             if (originalDate.get('day') === 6) originalDate = originalDate.day(8);
-            deliveryDates.push(originalDate.format('DD/MM/YYYY'));
+            deliveryDates.push(originalDate);
         }
     }
-    return deliveryDates;
+    const isFirstPast = dayjs().diff(deliveryDates[0], 'day') > 0;
+    deliveryDates.splice(isFirstPast ? 0 : 3, 1);
+    return deliveryDates.map((date) => date.format('DD/MM/YYYY'));
 }
 
 async function getPlanInfo(req, res) {
