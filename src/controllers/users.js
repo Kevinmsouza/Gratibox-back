@@ -14,7 +14,7 @@ async function postSignUp(req, res) {
 async function postLogin(req, res) {
     const { email, password } = req.body;
     try {
-        const userCheck = await connection.query('SELECT * FROM users WHERE email = $1;', [email]);
+        const userCheck = await connection.query('SELECT * FROM users WHERE email iLIKE $1;', [email]);
         const user = userCheck.rows[0];
         if (!user || !bcrypt.compareSync(password, user.password)) return res.sendStatus(400);
         await connection.query('DELETE FROM sessions WHERE user_id = $1;', [user.id]);
