@@ -46,7 +46,7 @@ git clone https://github.com/Kevinmsouza/Gratibox-back.git
 git clone https://github.com/Kevinmsouza/Gratibox-front.git
 ```
 
-3. Install frontend and dependencies executing command **in both folders**
+3. Install the dependencies executing command **in both folders**
 
 ```sh
 npm i
@@ -67,7 +67,11 @@ PORT=4000
 
    <br />
 
-6. Run (copy & paste) the dump.sql statements in database
+6. Use the dump.sql to create the tables of the database
+
+```sh
+psql -d nameOfNewDatabase -f dump.sql
+```
    <br />
    <br />
 
